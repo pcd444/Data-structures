@@ -63,3 +63,5 @@ InternalWildCardTrie.prototype.has = function(word){
         return false;
     }
 }
+
+export default WildCardTrie;

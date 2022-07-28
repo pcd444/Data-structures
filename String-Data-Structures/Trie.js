@@ -1,6 +1,6 @@
 // Trie: Well known data structure. Look it up.
 
-function Trie(strArray){
+function Trie(strArray=[]){
     this.charToTrieDict = new Map();
     this.marked = false;
     for(let str of strArray){
@@ -8,7 +8,7 @@ function Trie(strArray){
     }
 }
 
-InternalWildCardTrie.prototype.add = function(string){
+Trie.prototype.add = function(string){
     if(string === ''){
         this.marked = true;
         return;
@@ -20,11 +20,11 @@ InternalWildCardTrie.prototype.add = function(string){
         this.charToTrieDict.get(firstChar).add(restOfString);
     }
     else{
-        this.charToTrieDict.set(firstChar,new InternalWildCardTrie([restOfString]));
+        this.charToTrieDict.set(firstChar,new Trie([restOfString]));
     }
 }
 
-InternalWildCardTrie.prototype.has = function(string){
+Trie.prototype.has = function(string){
     if(string === ''){
         return this.marked;
     }
@@ -38,3 +38,5 @@ InternalWildCardTrie.prototype.has = function(string){
         return false;
     }
 }
+
+export default Trie;
