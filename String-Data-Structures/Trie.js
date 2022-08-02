@@ -14,8 +14,8 @@ Trie.prototype.add = function(string){
         return;
     }
 
-    const firstChar = string[0];
-    const restOfString = string.slice(1);
+    const [firstChar, restOfString] = getFirstAndRest(string);
+
     if(this.charToTrieDict.has(firstChar)){
         this.charToTrieDict.get(firstChar).add(restOfString);
     }
@@ -28,8 +28,7 @@ Trie.prototype.has = function(string){
     if(string === ''){
         return this.marked;
     }
-    const firstChar = string[0];
-    const restOfString = string.slice(1);
+    const [firstChar, restOfString] = getFirstAndRest(string);
 
     if(this.charToTrieDict.has(firstChar)){
         return this.charToTrieDict.get(firstChar).has(restOfString);
@@ -38,5 +37,15 @@ Trie.prototype.has = function(string){
         return false;
     }
 }
+
+// Gets first Unicode char instead of UTF-16 code unit. 
+function getFirstAndRest(str){
+    let iter = str[Symbol.iterator]();
+    let first = iter.next().value;
+    let rest = [...iter].join('');
+    return [first,rest];
+}
+
+
 
 export default Trie;
